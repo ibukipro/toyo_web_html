@@ -1,0 +1,275 @@
+/* =========================
+   全体
+========================= */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   本文の読みやすさ
+========================= */
+
+.md-content {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+
+/* =========================
+   スマホ
+========================= */
+
+@media screen and (max-width: 600px) {
+
+    .md-content {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+}
+
+
+/* =========================
+   トップページタイトル
+========================= */
+
+.md-content h1 {
+    font-size: 28px;
+    font-weight: 800;
+    padding-bottom: 10px;
+    margin-bottom: 24px;
+    border-bottom: 3px solid #D8C58A;
+}
+
+@media screen and (max-width: 600px) {
+
+    .md-content h1 {
+        font-size: 24px;
+    }
+
+}
+
+
+
+
+.text-card {
+    margin: 20px 0;
+}
+
+
+.text-card {
+    margin: 20px 0;
+}
+
+
+/* テキスト選択ボタン */
+
+.text-card-title {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 18px;
+    margin-bottom: 14px;
+    background: #D8C58A;
+    color: #333;
+
+    font-size: 20px;
+    font-weight: 800;
+    text-decoration: none;
+
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
+
+    transition: transform 0.1s;
+}
+
+.text-card-title:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.md-content hr {
+    border: 0;
+    border-top: 1px solid #d2d2d2;
+    margin: 30px 0 30px 0;
+}
+
+/* 章アコーディオン */
+.md-content details {
+    margin: 18px 0;
+    border: 0;
+    border-radius: 18px;
+    background: transparent;
+}
+
+/* 章タイトル */
+.md-content details > summary {
+    display: block;
+    padding: 10px 18px;
+    border-radius: 18px;
+    background: #D8C58A;
+    color: #333;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
+    transition: transform 0.1s;
+}
+
+/* 押したとき */
+.md-content details > summary:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* 節一覧 */
+.md-content details > div {
+    padding: 12px 8px 4px 8px;
+}
+
+/* 節リンク */
+.md-content details > div a {
+    display: block;
+    padding: 10px 14px;
+    margin: 6px 0;
+    font-size: 16px;
+    color: #444;
+    text-decoration: none;
+}
+
+/* 節リンクを押したとき */
+.md-content details > div a:active {
+    transform: translateX(2px);
+}
+
+/* 左側のアイコンを消す */
+.md-content details > summary::before {
+    display: none;
+}
+
+.md-content details > summary::after {
+    display: none;
+}
+
+/* アコーディオンの見た目調整 */
+.md-content details summary {
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    background: #D8C58A !important;
+    color: #333 !important;
+    padding: 10px 18px !important;
+    border-radius: 18px !important;
+}
+
+/* アコーディオン内の節 */
+.md-content details .admonition-content a {
+    font-size: 16px !important;
+    color: #444 !important;
+}
+
+/* 章タイトルの文字 */
+.md-content details summary span {
+    font-size: 18px !important;
+    font-weight: 800 !important;
+}
+
+/* アコーディオン内の節リンク */
+.md-content details a {
+    display: block;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #444 !important;
+    text-decoration: none !important;
+    padding: 3px 12px;
+}
+
+/* 節リンクを押したとき */
+.md-content details a:active {
+    transform: translateX(2px);
+}
+
+.md-content details p {
+    margin: 4px 0 !important;
+}
+
+.topic-block {
+    margin: 25px 0;
+}
+
+.topic-button {
+    display: block;
+    width: 100%;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 18px;
+    background: #D8C58A;
+    color: #333;
+    font-size: 18px;
+    font-weight: 800;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
+}
+
+.topic-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.topic-description {
+    margin: 10px 4px 0 4px;
+    line-height: 1.7;
+}
+
+.topic-detail {
+    display: none;
+    margin: 16px 8px 0 8px;
+    padding: 18px;
+    border-radius: 14px;
+    background: #f7f5ee;
+}
+
+.topic-detail h3 {
+    margin-top: 0;
+}
+
+.more-button {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 7px 16px;
+    border: 1px solid #c9b978;
+    border-radius: 14px;
+    background: #fffdf5;
+    color: #555;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.more-button:active {
+    transform: translateY(1px);
+}
+
+.more-detail {
+    display: none;
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #fffdf5;
+}
+
+.more-detail h4 {
+    margin-top: 0;
+}
+
+.note-box {
+    margin: 18px 0;
+    padding: 10px 14px;
+    border-left: 4px solid #c9b978;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.7;
+}
