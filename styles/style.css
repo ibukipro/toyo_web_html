@@ -10,7 +10,6 @@ body {
 }
 
 
-
 .page-content {
     max-width: 760px;
     margin: 0 auto;
@@ -23,16 +22,77 @@ body {
     }
 }
 
+/* =========================
+   サイト共通ヘッダー
+   ========================= */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #ebd992; 
+}
+
+.site-header-inner {
+    max-width: 1100px;
+    min-height: 58px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.site-title {
+    color: #333;
+    font-size: 19px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.site-header-extra {
+    display: none;
+}
 
 
+
+/* =========================
+   サイト共通フッター
+   ========================= */
+
+.site-footer {
+    margin-top: 100px;
+    background: #3f3f3f;
+    color: #ffffff;
+}
+
+.site-footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 20px;
+    text-align: center;
+}
+
+.site-footer-title {
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.site-footer-copy {
+    font-size: 12px;
+    opacity: 0.75;
+}
 
 /* =========================
    トップページタイトル
 ========================= */
 
 .page-content h1 {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 800;
+    line-height: 1.5; 
     padding-bottom: 10px;
     margin-bottom: 24px;
     border-bottom: 3px solid #D8C58A;
@@ -45,8 +105,6 @@ body {
     }
 
 }
-
-
 
 
 .text-card {
@@ -89,103 +147,8 @@ body {
     margin: 30px 0 30px 0;
 }
 
-/* 章アコーディオン */
-.md-content details {
-    margin: 18px 0;
-    border: 0;
-    border-radius: 18px;
-    background: transparent;
-}
+/*  */
 
-/* 章タイトル */
-.md-content details > summary {
-    display: block;
-    padding: 10px 18px;
-    border-radius: 18px;
-    background: #D8C58A;
-    color: #333;
-    font-size: 18px;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
-    transition: transform 0.1s;
-}
-
-/* 押したとき */
-.md-content details > summary:active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
-}
-
-/* 節一覧 */
-.md-content details > div {
-    padding: 12px 8px 4px 8px;
-}
-
-/* 節リンク */
-.md-content details > div a {
-    display: block;
-    padding: 10px 14px;
-    margin: 6px 0;
-    font-size: 16px;
-    color: #444;
-    text-decoration: none;
-}
-
-/* 節リンクを押したとき */
-.md-content details > div a:active {
-    transform: translateX(2px);
-}
-
-/* 左側のアイコンを消す */
-.md-content details > summary::before {
-    display: none;
-}
-
-.md-content details > summary::after {
-    display: none;
-}
-
-/* アコーディオンの見た目調整 */
-.md-content details summary {
-    font-size: 18px !important;
-    font-weight: 800 !important;
-    background: #D8C58A !important;
-    color: #333 !important;
-    padding: 10px 18px !important;
-    border-radius: 18px !important;
-}
-
-/* アコーディオン内の節 */
-.md-content details .admonition-content a {
-    font-size: 16px !important;
-    color: #444 !important;
-}
-
-/* 章タイトルの文字 */
-.md-content details summary span {
-    font-size: 18px !important;
-    font-weight: 800 !important;
-}
-
-/* アコーディオン内の節リンク */
-.md-content details a {
-    display: block;
-    font-size: 15px !important;
-    font-weight: 600 !important;
-    color: #444 !important;
-    text-decoration: none !important;
-    padding: 3px 12px;
-}
-
-/* 節リンクを押したとき */
-.md-content details a:active {
-    transform: translateX(2px);
-}
-
-.md-content details p {
-    margin: 4px 0 !important;
-}
 
 .topic-block {
     margin: 25px 0;
@@ -355,10 +318,10 @@ body {
     transform: translateY(1px);
 }
 
-/* ポイント */
+/* ポイントボックス */
 .point-box {
     width: 480px;
-    max-width: calc(100% - 48px);
+    max-width: calc(100% - 80px);
     margin: 60px auto 40px auto;
     padding: 20px 22px;
     border-radius: 18px;
@@ -377,3 +340,4 @@ body {
     margin: 8px 0;
     line-height: 1.7;
 }
+
