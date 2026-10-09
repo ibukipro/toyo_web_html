@@ -12,22 +12,36 @@
 
 <body>
 
-<div id="site-header"></div>
+    <div id="site-header"></div>
 
     <div class="page-content">
 
 
 
-        <h1>東洋的考え方①</h1>
+  
+<h1>東洋的考え方①</h1>
 
-        <p>
-            タイトルをクリックすると、詳しい内容が開きます。
-        </p>
+<p>
+    タイトルをクリックすると、詳しい内容が開きます。
+</p>
+
+<div class="progress-panel">
+    <div class="progress-heading">
+        <strong>このページの学習状況</strong>
+        <span id="progress-percent">0%</span>
+    </div>
+
+    <div class="progress-track">
+        <div id="progress-bar" class="progress-bar"></div>
+    </div>
+
+    <p id="progress-summary">完了 0 / 3 節</p>
+</div>
 
 
         <div class="topic-block">
 
-            <button class="topic-button" onclick="toggleTopic('topic1')">
+            <button class="topic-button" onclick="toggleTopic('bc01p01t1')">
                 物事の全体を見る
             </button>
 
@@ -35,7 +49,7 @@
                 住所の方式
             </div>
 
-            <div id="topic1" class="topic-detail">
+            <div id="bc01p01t1" class="topic-detail">
 
                 <h3>住所の表し方</h3>
 
@@ -66,11 +80,11 @@
                 </p>
 
 
-                <button class="more-button" onclick="toggleTopic('more1')">
+                <button class="more-button" onclick="toggleTopic('bc01p01m1')">
                     もっと見る
                 </button>
 
-                <div id="more1" class="more-detail">
+                <div id="bc01p01m1" class="more-detail">
 
                     <h4>住所の表し方を比べてみる</h4>
 
@@ -113,218 +127,211 @@
 
             </div>
 
+        </div>
 
+        <div class="topic-block">
 
-            <div class="topic-block">
+            <button class="topic-button" onclick="toggleTopic('bc01p01t2')">
+                結論を後に言う
+            </button>
 
-                <button class="topic-button" onclick="toggleTopic('topic2')">
-                    結論を後に言う
+            <div class="topic-description">
+                文章の方式
+            </div>
+
+            <div id="bc01p01t2" class="topic-detail">
+
+                <h3>文章の組み立て方を比べてみる</h3>
+
+                <p>
+                    文章では、「何を先に伝えるか」にも違いがあります。
+                </p>
+
+                <p>
+                    日本語では、まず状況や背景を説明し、最後のほうで結論や本題を示すような文章の組み立てが見られます。
+                </p>
+
+                <p>
+                    一方、英語圏の文章では、最初に結論や主張を示し、その後に理由や具体的な説明を加えていく構成がよく使われます。
+                </p>
+
+                <button class="more-button" onclick="toggleTopic('bc01p01m2')">
+                    もっと見る
                 </button>
 
-                <div class="topic-description">
-                    文章の方式
-                </div>
+                <div id="bc01p01m2" class="more-detail">
 
-                <div id="topic2" class="topic-detail">
-
-                    <h3>文章の組み立て方を比べてみる</h3>
+                    <h4>国による文章の流れを比べてみる</h4>
 
                     <p>
-                        文章では、「何を先に伝えるか」にも違いがあります。
+                        <strong>【結論を先に示す傾向】</strong><br>
+                        <br>
+                        <strong>アメリカ・イギリス</strong><br>
+                        結論・主張 → 理由 → 具体例・説明
                     </p>
 
                     <p>
-                        日本語では、まず状況や背景を説明し、最後のほうで結論や本題を示すような文章の組み立てが見られます。
+                        <strong>中国</strong><br>
+                        結論・主張 → 理由・説明 → 具体例
                     </p>
 
                     <p>
-                        一方、英語圏の文章では、最初に結論や主張を示し、その後に理由や具体的な説明を加えていく構成がよく使われます。
+                        <strong>【結論を後に示す傾向】</strong><br>
+                        <br>
+                        <strong>日本</strong><br>
+                        背景・状況 → 経緯 → 理由・説明 → 結論
                     </p>
 
-                    <button class="more-button" onclick="toggleTopic('more2')">
-                        もっと見る
-                    </button>
+                    <p>
+                        <strong>フランス</strong><br>
+                        問題提起・背景 → 論証 → 結論・まとめ
+                    </p>
 
-                    <div id="more2" class="more-detail">
+                    <p>
+                        <strong>ドイツ</strong><br>
+                        問題・テーマ → 論証・説明 → 結論
+                    </p>
 
-                        <h4>国による文章の流れを比べてみる</h4>
+                    <div class="note-box">
 
-                        <p>
-                            <strong>【結論を先に示す傾向】</strong><br>
-                            <br>
-                            <strong>アメリカ・イギリス</strong><br>
-                            結論・主張 → 理由 → 具体例・説明
-                        </p>
-
-                        <p>
-                            <strong>中国</strong><br>
-                            結論・主張 → 理由・説明 → 具体例
-                        </p>
-
-                        <p>
-                            <strong>【結論を後に示す傾向】</strong><br>
-                            <br>
-                            <strong>日本</strong><br>
-                            背景・状況 → 経緯 → 理由・説明 → 結論
-                        </p>
-
-                        <p>
-                            <strong>フランス</strong><br>
-                            問題提起・背景 → 論証 → 結論・まとめ
-                        </p>
-
-                        <p>
-                            <strong>ドイツ</strong><br>
-                            問題・テーマ → 論証・説明 → 結論
-                        </p>
-
-                        <div class="note-box">
-
-                            補足：ここで紹介しているのは、各言語や文化に見られる<strong>大まかな傾向</strong>です。
-                            <br>
-                            実際には、「この国は結論を先に言う」「この国は必ず後に言う」というように、はっきり分かれているわけではありません。
-                            <br>
-                            たとえば中国語の文章でも結論を先に示すことがありますし、日本語でも最初に結論を伝える文章は普通にあります。
-                            <br>
-                            また、フランス語やドイツ語などでも、文章の目的や分野によって構成は変わります。
-                            <br>
-                            つまり大切なのは、国をきれいに分類することではなく、<strong>「何を、どの順番で伝えるかには、文化や言語によって傾向がある」</strong>と知ることです。
-
-                        </div>
+                        補足：ここで紹介しているのは、各言語や文化に見られる<strong>大まかな傾向</strong>です。
+                        <br>
+                        実際には、「この国は結論を先に言う」「この国は必ず後に言う」というように、はっきり分かれているわけではありません。
+                        <br>
+                        たとえば中国語の文章でも結論を先に示すことがありますし、日本語でも最初に結論を伝える文章は普通にあります。
+                        <br>
+                        また、フランス語やドイツ語などでも、文章の目的や分野によって構成は変わります。
+                        <br>
+                        つまり大切なのは、国をきれいに分類することではなく、<strong>「何を、どの順番で伝えるかには、文化や言語によって傾向がある」</strong>と知ることです。
 
                     </div>
 
                 </div>
 
-                <div class="topic-block">
+            </div>
+        </div>
 
-                    <button class="topic-button" onclick="toggleTopic('topic3')">
-                        思想、哲学の違い
-                    </button>
+        <div class="topic-block">
 
-                    <div class="topic-description">
-                        東洋は自然中心・西洋は自分中心の傾向がある。
-                    </div>
+            <button class="topic-button" onclick="toggleTopic('bc01p01t3')">
+                思想、哲学の違い
+            </button>
 
-                    <div id="topic3" class="topic-detail">
+            <div class="topic-description">
+                東洋は自然中心・西洋は自分中心の傾向がある。
+            </div>
 
-                        <h3>自然と人間をどう見るか</h3>
+            <div id="bc01p01t3" class="topic-detail">
 
-                        <p>
-                            東洋と西洋では、人間と自然をどのように捉えるかについて、異なる考え方が見られます。
-                        </p>
+                <h3>自然と人間をどう見るか</h3>
 
-                        <p>
-                            東洋思想では、人間を自然の一部として捉え、自然の流れに合わせて生きることを重視する考え方があります。
-                        </p>
+                <p>
+                    東洋と西洋では、人間と自然をどのように捉えるかについて、異なる考え方が見られます。
+                </p>
 
-                        <p>
-                            一方、西洋哲学では、人間が自分自身で考え、世界を理解しようとすることを重視する考え方が発展してきました。
-                        </p>
+                <p>
+                    東洋思想では、人間を自然の一部として捉え、自然の流れに合わせて生きることを重視する考え方があります。
+                </p>
 
-                        <p>
-                            ただし、これはあくまで大きな傾向として見るものです。
-                        </p>
+                <p>
+                    一方、西洋哲学では、人間が自分自身で考え、世界を理解しようとすることを重視する考え方が発展してきました。
+                </p>
 
-                        <button class="more-button" onclick="toggleTopic('more3')">
-                            もっと見る
-                        </button>
+                <p>
+                    ただし、これはあくまで大きな傾向として見るものです。
+                </p>
 
-                        <div id="more3" class="more-detail">
+                <button class="more-button" onclick="toggleTopic('bc01p01m3')">
+                    もっと見る
+                </button>
 
-                            <h4>思想家の考え方から見てみる</h4>
+                <div id="bc01p01m3" class="more-detail">
 
-                            <p>
-                                <strong>老子</strong><br>
-                                自然のあり方に逆らわず、物事の流れに合わせて生きることを重視しました。
-                            </p>
+                    <h4>思想家の考え方から見てみる</h4>
 
-                            <p>
-                                <strong>孔子</strong><br>
-                                人と人との関係や社会の中でのあり方を重視し、人間がどのように生きるべきかを考えました。
-                            </p>
+                    <p>
+                        <strong>老子</strong><br>
+                        自然のあり方に逆らわず、物事の流れに合わせて生きることを重視しました。
+                    </p>
 
-                            <p>
-                                <strong>デカルト</strong><br>
-                                「自分は何を確実に知ることができるのか」という問いから、人間の理性によって世界を理解しようとしました。
-                            </p>
+                    <p>
+                        <strong>孔子</strong><br>
+                        人と人との関係や社会の中でのあり方を重視し、人間がどのように生きるべきかを考えました。
+                    </p>
 
-                            <p>
-                                このように思想家の考え方を比べてみると、「自然との調和を重視する考え方」と「人間の理性や主体性を重視する考え方」という違いを見ることができます。
-                            </p>
+                    <p>
+                        <strong>デカルト</strong><br>
+                        「自分は何を確実に知ることができるのか」という問いから、人間の理性によって世界を理解しようとしました。
+                    </p>
 
-                            <div class="note-box">
+                    <p>
+                        このように思想家の考え方を比べてみると、「自然との調和を重視する考え方」と「人間の理性や主体性を重視する考え方」という違いを見ることができます。
+                    </p>
 
-                                補足：ここでいう「東洋は自然中心・西洋は自分中心」という表現は、思想や哲学の<strong>大まかな傾向</strong>を分かりやすく表したものです。
-                                <br>
-                                東洋にも人間の主体性を重視する考え方がありますし、西洋にも自然との調和を重視する思想があります。
-                                <br>
-                                また、同じ東洋・西洋でも、時代や思想家によって考え方は大きく異なります。
-                                <br>
-                                そのため、東洋と西洋を完全に二つに分けるのではなく、<strong>人間と自然をどのように捉えてきたのか、その違いを考えるための一つの視点</strong>として見てみましょう。
+                    <div class="note-box">
 
-                            </div>
-
-                        </div>
+                        補足：ここでいう「東洋は自然中心・西洋は自分中心」という表現は、思想や哲学の<strong>大まかな傾向</strong>を分かりやすく表したものです。
+                        <br>
+                        東洋にも人間の主体性を重視する考え方がありますし、西洋にも自然との調和を重視する思想があります。
+                        <br>
+                        また、同じ東洋・西洋でも、時代や思想家によって考え方は大きく異なります。
+                        <br>
+                        そのため、東洋と西洋を完全に二つに分けるのではなく、<strong>人間と自然をどのように捉えてきたのか、その違いを考えるための一つの視点</strong>として見てみましょう。
 
                     </div>
 
                 </div>
-
-
 
             </div>
 
         </div>
 
 
+        <div class="point-box">
+
+            <div class="point-title">
+                POINT｜東洋思想で見る「思想」と「哲学」
+            </div>
+
+            <p>
+                思想は全体の現象から見た世界観。
+            </p>
+
+            <p>
+                哲学は現象や存在の価値を体系的に研究したもの。
+            </p>
+
+        </div>
+
+
+        <div class="page-navigation">
+
+            <a href="02.html" class="next-page">
+                次のページ →
+            </a>
+
+        </div>
+
+        <div class="return-navigation">
+
+            <a href="../../basic/index.html">
+                基本論のテキストに戻る
+            </a>
+
+            <a href="../../index.html">
+                トップページに戻る
+            </a>
+
+        </div>
+
     </div>
 
 
-<div class="point-box">
+    <div id="site-footer"></div>
 
-    <div class="point-title">
-        POINT｜東洋思想で見る「思想」と「哲学」
-    </div>
-
-    <p>
-        思想は全体の現象から見た世界観。
-    </p>
-
-    <p>
-        哲学は現象や存在の価値を体系的に研究したもの。
-    </p>
-
-</div>
-
-
-
-
-<div class="page-navigation">
-
-    <a href="02.html" class="next-page">
-        次のページ →
-    </a>
-
-</div>
-
-<div class="return-navigation">
-
-    <a href="../../basic/index.html">
-        基本論のテキストに戻る
-    </a>
-
-    <a href="../../index.html">
-        トップページに戻る
-    </a>
-
-</div>
-
-
-<div id="site-footer"></div>
-
-<script src="../../js/common.js"></script>
-<script src="../../js/topic.js"></script>
+    <script src="../../js/common.js"></script>
+    <script src="../../js/topic.js"></script>
 </body>
 
 </html>
+
