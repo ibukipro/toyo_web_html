@@ -32,31 +32,62 @@ function markViewed(id, type) {
 }
 
 // 閲覧済みのボタンを薄い色にする
+
 function updateViewedStyle(id, type) {
     const selector = type === "topic"
         ? ".topic-button"
         : ".more-button";
 
-    document.querySelectorAll(selector).forEach(button => {
-        if (button.getAttribute("onclick") === `toggleTopic('${id}')`) {
+    const buttons = document.querySelectorAll(selector);
+    const targetOnclick = `toggleTopic('${id}')`;
+
+    buttons.forEach(button => {
+        if (button.getAttribute("onclick") === targetOnclick) {
             button.classList.add("is-viewed");
         }
     });
 }
 
+
 // 保存済みの閲覧状態を復元する
+
 function restoreViewedStyles() {
     const key = "toyoProgress";
     const saved = JSON.parse(localStorage.getItem(key) || "{}");
 
+    const topicButtons = document.querySelectorAll(".topic-button");
+    const moreButtons = document.querySelectorAll(".more-button");
+
+    const buttonsByAction = new Map();
+
+    topicButtons.forEach(button => {
+        buttonsByAction.set(button.getAttribute("onclick"), {
+            button,
+            type: "topic"
+        });
+    });
+
+    moreButtons.forEach(button => {
+        buttonsByAction.set(button.getAttribute("onclick"), {
+            button,
+            type: "more"
+        });
+    });
+
     for (const id in saved) {
-        if (saved[id].viewed) {
-            updateViewedStyle(id, saved[id].type);
+        if (!saved[id].viewed) continue;
+
+        const action = `toggleTopic('${id}')`;
+        const entry = buttonsByAction.get(action);
+
+        if (entry && entry.type === saved[id].type) {
+            entry.button.classList.add("is-viewed");
         }
     }
 
     updateProgress();
 }
+
 
 // ページ全体の進捗を計算する
 function updateProgress() {
@@ -134,6 +165,21 @@ function updateProgress() {
 
 
 
+
 document.addEventListener("DOMContentLoaded", () => {
+    const progressBar = document.getElementById("progress-bar");
+
+    if (progressBar) {
+        progressBar.style.transition = "none";
+    }
+
     restoreViewedStyles();
+
+    if (progressBar) {
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                progressBar.style.removeProperty("transition");
+            });
+        });
+    }
 });

@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>テキスト作成ツール</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            background: #f4f5f7;
+            color: #28313b;
+            font-family: sans-serif;
+            line-height: 1.7;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 4px;
+        }
+
+        .lead {
+            margin-top: 0;
+            color: #66717e;
+        }
+
+        .panel {
+            margin-top: 20px;
+            padding: 22px;
+            background: white;
+            border: 1px solid #dfe3e8;
+            border-radius: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+       /* 章番号・章タイトルを横幅いっぱいにする */
+.page-settings-grid > div:nth-child(3),
+.page-settings-grid > div:nth-child(4) {
+    grid-column: 1 / -1;
+}
+
+/* 5段目：冒頭タイトルを横幅いっぱいにする */
+.page-settings-grid > .intro-title-field {
+    grid-column: 1 / -1;
+    text-align: left;
+}
+
+/* 6段目：冒頭文章を横幅いっぱいにする */
+.page-settings-grid > .intro-body-field {
+    grid-column: 1 / -1;
+    text-align: left;
+}
+
+/* 冒頭タイトル・冒頭文章の入力欄 */
+.intro-title-field input,
+.intro-body-field textarea {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 16px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+/* ページ番号の入力欄だけ幅を調整 */
+.page-settings-grid #pageNumber {
+    width: 90px;
+    box-sizing: border-box;
+}
+
+/* 冒頭タイトルを1段まるごと使う */
+.page-settings-grid > .intro-title-field {
+    grid-column: 1 / -1;
+}
+
+/* 冒頭文章をタイトルの下に配置する */
+.page-settings-grid > .intro-body-field {
+    grid-column: 1 / -1;
+}
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd2da;
+            border-radius: 7px;
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .editor-toolbar {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+            margin-bottom: 6px;
+        }
+
+        .editor-toolbar button {
+            min-width: 40px;
+            padding: 6px 12px;
+        }
+
+        .rich-editor {
+            min-height: 140px;
+            padding: 12px;
+            border: 1px solid #cbd2da;
+            border-radius: 7px;
+            background: white;
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        .rich-editor:focus {
+            outline: 2px solid #9bb8d6;
+            outline-offset: 1px;
+        }
+
+        .rich-editor:empty::before {
+            content: attr(data-placeholder);
+            color: #929ba5;
+            pointer-events: none;
+        }
+
+        .topic {
+            margin-top: 16px;
+            padding: 18px;
+            border: 1px solid #dfe3e8;
+            border-radius: 10px;
+        }
+
+        .topic h3 {
+            margin-top: 0;
+        }
+
+        .topic-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .topic-heading h3 {
+            margin: 0;
+        }
+
+        .close-empty-button {
+            background: #f2e8e8;
+            color: #7a3030;
+            padding: 6px 10px;
+            font-size: .9rem;
+            white-space: nowrap;
+        }
+
+        .topic-heading {
+            margin-bottom: 14px;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: 0;
+            border-radius: 7px;
+            background: #344d67;
+            color: white;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        button.secondary {
+            background: #e8edf2;
+            color: #28313b;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+
+
+        button {
+            transition: background-color 0.12s ease, transform 0.08s ease;
+        }
+
+        button:hover {
+            filter: brightness(1.1);
+        }
+
+        button:active {
+            transform: translateY(2px);
+            filter: brightness(0.85);
+        }
+
+
+        .page-number-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .page-number-row input {
+            min-width: 0;
+        }
+
+        #preview {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            max-height: 420px;
+            overflow: auto;
+        }
+
+        .hint {
+            color: #66717e;
+            font-size: .92rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 14px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .panel {
+                padding: 16px;
+            }
+        }
+
+        /* 作成ツールの一番下に表示する「トップへ戻る」ボタン */
+        .back-to-top {
+            margin-top: 40px;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+
+        .back-to-top a {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 8px;
+            background: #eee;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .back-to-top a:hover {
+            background: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>テキスト作成ツール</h1>
+        <p class="lead">教材ページを作成するための入力画面</p>
+
+        <section class="panel">
+            <h2>ページ設定</h2>
+
+            <div class="grid page-settings-grid">
+                <div>
+                    <label for="textNumber">テキスト番号</label>
+                    <input id="textNumber" value="01" inputmode="numeric">
+                </div>
+
+                <div>
+                    <label for="textTitle">テキストタイトル</label>
+                    <input id="textTitle" placeholder="例：東洋思想応用学・基本論">
+                </div>
+
+                <div>
+                    <label for="chapterNumber">章番号</label>
+                    <input id="chapterNumber" value="01" inputmode="numeric">
+                </div>
+
+                <div>
+                    <label for="chapterTitle">章タイトル</label>
+                    <input id="chapterTitle" placeholder="例：東洋的考え方">
+                </div>
+
+                <div>
+                    <label for="pageNumber">ページ番号</label>
+                    <div class="page-number-row">
+                        <button type="button" id="prevPageButton" class="secondary" style="white-space:nowrap;">←
+                            前のページ</button>
+                        <input id="pageNumber" value="001" inputmode="numeric">
+                        <button type="button" id="nextPageButton" class="secondary" style="white-space:nowrap;">次のページ
+                            →</button>
+                    </div>
+                </div>
+
+                <!-- 4段目：ページタイトル -->
+                <div>
+                    <label for="pageTitle">ページタイトル</label>
+                    <input id="pageTitle" placeholder="例：東洋的考え方①">
+                </div>
+
+                <!-- 5段目：冒頭タイトル -->
+                <div class="intro-title-field">
+                    <label for="introTitle">冒頭タイトル（任意）</label>
+                    <input id="introTitle" placeholder="例：このページで学ぶこと">
+                </div>
+
+                <!-- 6段目：冒頭文章 -->
+                <div class="intro-body-field">
+                    <label for="introBody">冒頭文章（任意）</label>
+                    <textarea id="introBody" rows="4" placeholder="ページの冒頭に表示する文章"></textarea>
+                </div>
+            </div>
+
+            <p class="hint">生成したHTMLは、教材ページのフォルダ（例：basic/01/）に保存する想定です。</p>
+        </section>
+
+        <section class="panel">
+            <h2>トピック</h2>
+            <div id="topics"></div>
+            <div class="actions">
+                <button type="button" id="addTopic" class="secondary">＋ トピックを追加</button>
+            </div>
+        </section>
+
+        <section class="panel">
+            <section class="panel">
+                <h2>図の設定</h2>
+
+                <div id="figures"></div>
+
+                <div class="actions">
+                    <button type="button" id="addFigure" class="secondary">＋ 図を追加</button>
+                </div>
+
+                <p class="hint">図はPOINT欄の直前に表示されます。画像は images フォルダに入れてください。</p>
+            </section>
+            <h2>POINT欄</h2>
+            <div id="points"></div>
+            <div class="actions">
+                <button type="button" id="addPoint" class="secondary">＋ POINT欄を追加</button>
+            </div>
+            <p class="hint">タイトルも本文も空のPOINT欄は、生成した教材ページには表示されません。</p>
+        </section>
+
+
+        <section class="panel">
+            <h2>HTML作成</h2>
+            <p class="hint">HTMLを生成し、コードを確認・コピーできます。</p>
+
+
+            <div class="actions">
+                <button type="button" id="generateButton">HTMLを生成</button>
+                <button type="button" id="copyHtmlButton" class="secondary">HTMLをコピー</button>
+                <button type="button" id="cancelButton" class="secondary">入力をリセット</button>
+            </div>
+
+
+            <hr>
+
+            <h3>既存のHTMLを読み込む</h3>
+            <p class="hint">以前に生成したHTMLを貼り付けると、入力欄に内容を復元できます。</p>
+
+            <label for="importHtml">読み込むHTMLコード</label>
+            <textarea id="importHtml" rows="8" spellcheck="false" placeholder="以前に生成したHTMLをここに貼り付け"></textarea>
+
+            <div class="actions">
+                <button type="button" id="importHtmlButton" class="secondary">HTMLを読み込む</button>
+            </div>
+
+
+            <label for="preview">生成されたHTMLコード</label>
+            <textarea id="preview" hidden rows="18" spellcheck="false"></textarea>
+
+            <p id="status" role="status" class="hint"></p>
+
+            <hr>
+
+
+        </section>
+
+
+        <section class="panel" id="pagePreviewPanel" hidden>
+            <h2>教材ページのプレビュー</h2>
+
+            <iframe id="pagePreviewFrame" title="教材ページのプレビュー"
+                style="width: 100%; height: 700px; border: 1px solid #ccd5df; border-radius: 7px; background: white;"></iframe>
+        </section>
+
+
+    </main>
+
+    <script>
+
+        console.log("DEBUG 1: 本体スクリプト開始");
+
+        let topicCount = 0;
+        let pointCount = 0;
+        let savedSelection = null;
+
+        function escapeHtml(value) {
+            return String(value ?? "").replace(/[&<>"']/g, char => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+            })[char]);
+        }
+
+        console.log("DEBUG 2: escapeHtml 定義完了");
+
+        function cleanEditorHtml(editor) {
+            // エディター内の書式は太字・段落・改行を中心に残す。
+            // 生成HTMLへ不要な属性や危険な要素を持ち込まない。
+            const allowed = new Set(["B", "STRONG", "I", "EM", "U", "BR", "P", "DIV", "UL", "OL", "LI"]);
+            const source = editor.cloneNode(true);
+
+            function cleanNode(node) {
+                [...node.childNodes].forEach(child => {
+                    if (child.nodeType === Node.COMMENT_NODE) {
+                        child.remove();
+                    } else if (child.nodeType === Node.ELEMENT_NODE) {
+                        if (["SCRIPT", "STYLE", "IFRAME", "OBJECT", "SVG"].includes(child.tagName)) {
+                            child.remove();
+                        } else if (!allowed.has(child.tagName)) {
+                            cleanNode(child);
+                            child.replaceWith(...child.childNodes);
+                        } else {
+                            [...child.attributes].forEach(attr => child.removeAttribute(attr.name));
+                            cleanNode(child);
+                        }
+                    }
+                });
+            }
+            cleanNode(source);
+
+            // contenteditableのDIVを段落として整え、エディターのHTMLを教材本文に変換する。
+            let result = source.innerHTML.trim();
+
+            result = result.replace(/<div><br><\/div>/gi, "<p></p>");
+            result = result.replace(/<\/div>\s*<div>/gi, "</p><p>");
+            result = result.replace(/<div>/gi, "<p>").replace(/<\/div>/gi, "</p>");
+
+            return result;
+        }
+
+        function addToolbar(editor) {
+            const toolbar = document.createElement("div");
+            toolbar.className = "editor-toolbar";
+            toolbar.innerHTML = '<button type="button" class="bold-button" aria-label="選択部分を太字"><b>B</b></button>';
+            const boldButton = toolbar.querySelector(".bold-button");
+
+            // ボタンを押しても選択範囲が消えないようにする。
+            boldButton.addEventListener("mousedown", event => {
+                event.preventDefault();
+                if (savedSelection) {
+                    const selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(savedSelection);
+                }
+                editor.focus();
+                document.execCommand("bold", false, null);
+                savedSelection = null;
+            });
+
+            editor.addEventListener("keyup", saveSelection);
+            editor.addEventListener("mouseup", saveSelection);
+            editor.addEventListener("focus", saveSelection);
+            editor.addEventListener("input", () => { savedSelection = null; });
+            editor.addEventListener("blur", () => {
+                const selection = window.getSelection();
+                if (selection && selection.rangeCount && editor.contains(selection.anchorNode)) {
+                    savedSelection = selection.getRangeAt(0).cloneRange();
+                }
+            });
+
+            editor.parentNode.insertBefore(toolbar, editor);
+        }
+
+        function saveSelection() {
+            const selection = window.getSelection();
+            if (!selection || !selection.rangeCount) return;
+            const range = selection.getRangeAt(0);
+            const node = range.commonAncestorContainer;
+            const editor = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
+            if (editor && editor.closest) {
+                const richEditor = editor.closest(".rich-editor");
+                if (richEditor) savedSelection = range.cloneRange();
+            }
+        }
+
+        function createRichEditor(className, placeholder) {
+            const editor = document.createElement("div");
+            editor.className = `rich-editor ${className}`;
+            editor.contentEditable = "true";
+            editor.dataset.placeholder = placeholder;
+            return editor;
+        }
+
+        function isTopicEmpty(section) {
+            const name = section.querySelector(".topic-name").value.trim();
+            const description = section.querySelector(".topic-description").value.trim();
+            const bodyTitle = section.querySelector(".topic-body-title").value.trim();
+            const body = plainTextFromHtml(section.querySelector(".topic-body").innerHTML);
+            const moreEnabled = section.querySelector(".more-enabled").checked;
+            const moreTitle = section.querySelector(".more-title").value.trim();
+            const moreBody = plainTextFromHtml(section.querySelector(".more-body").innerHTML);
+            return !name && !description && !bodyTitle && !body && (!moreEnabled || (!moreTitle && !moreBody));
+        }
+
+        function addCloseButton(section, isEmpty, kind) {
+            const button = section.querySelector(".close-empty-button");
+            button.addEventListener("click", () => {
+                if (!isEmpty()) {
+                    alert("入力内容があるため閉じられません。内容を消してから、もう一度押してください。");
+                    return;
+                }
+                section.remove();
+                renumberEntries();
+            });
+        }
+
+        function renumberEntries() {
+            document.querySelectorAll("#topics .topic").forEach((section, index) => {
+                section.querySelector("h3").textContent = `トピック ${index + 1}`;
+            });
+            document.querySelectorAll("#points .point-entry").forEach((section, index) => {
+                section.querySelector("h3").textContent = `POINT ${index + 1}`;
+            });
+            topicCount = document.querySelectorAll("#topics .topic").length;
+            pointCount = document.querySelectorAll("#points .point-entry").length;
+        }
+
+        function addTopic() {
+            topicCount++;
+            const section = document.createElement("section");
+            section.className = "topic";
+            section.innerHTML = `
+            <div class="topic-heading">
+                <h3>トピック ${topicCount}</h3>
+                <button type="button" class="close-empty-button">空欄を閉じる ×</button>
+            </div>
+            <label>トピック名</label>
+            <input class="topic-name" placeholder="例：物事の全体を見る">
+            <label>短い説明</label>
+            <input class="topic-description" placeholder="例：住所の方式">
+            <label>詳しい本文のタイトル</label>
+<input class="topic-body-title" placeholder="例：全体を見るという考え方">
+            <label>詳しい本文</label>
+            <div class="topic-editor-slot"></div>
+            <label>
+                <input type="checkbox" class="more-enabled" style="width:auto;">
+                「もっと見る」を追加
+            </label>
+            <div class="more-fields" hidden>
+                <label>「もっと見る」のタイトル</label>
+                <input class="more-title" placeholder="追加説明のタイトル">
+               <label>「もっと見る」の本文</label>
+               <div class="more-editor-slot"></div>
+
+                 <label>補足（任意）</label>
+                 <div class="note-editor-slot"></div>
+            </div>
+        `;
+            const topicEditor = createRichEditor("topic-body", "詳しい内容を入力");
+            const moreEditor = createRichEditor("more-body", "追加の詳しい内容");
+            const noteEditor = createRichEditor("more-note", "補足を入力（省略可）");
+
+            section.querySelector(".topic-editor-slot").appendChild(topicEditor);
+            section.querySelector(".more-editor-slot").appendChild(moreEditor);
+            section.querySelector(".note-editor-slot").appendChild(noteEditor);
+            // エディターをDOMに配置してからツールバーを追加する
+            addToolbar(topicEditor);
+            addToolbar(moreEditor);
+            addToolbar(noteEditor);
+            section.querySelector(".more-enabled").addEventListener("change", event => {
+                section.querySelector(".more-fields").hidden = !event.target.checked;
+            });
+            document.getElementById("topics").appendChild(section);
+            addCloseButton(section, () => isTopicEmpty(section), "トピック");
+        }
+
+        function addPoint() {
+            pointCount++;
+            const section = document.createElement("section");
+            section.className = "topic point-entry";
+            section.innerHTML = `
+            <div class="topic-heading">
+                <h3>POINT ${pointCount}</h3>
+                <button type="button" class="close-empty-button">空欄を閉じる ×</button>
+            </div>
+            <label>タイトル</label>
+            <input class="point-title" placeholder="例：東洋思想で見るポイント">
+            <label>本文</label>
+            <textarea class="point-body" placeholder="ポイントを入力"></textarea>
+        `;
+            document.getElementById("points").appendChild(section);
+            addCloseButton(section, () => !section.querySelector(".point-title").value.trim() && !section.querySelector(".point-body").value.trim(), "POINT");
+        }
+
+        function addFigure() {
+            const section = document.createElement("section");
+            section.className = "topic figure-entry";
+
+            section.innerHTML = `
+        <div class="topic-heading">
+            <h3>図の設定</h3>
+            <button type="button" class="close-empty-button">空欄を閉じる ×</button>
+        </div>
+
+        <label>図のタイトル</label>
+        <input class="figure-title" placeholder="例：人生の流れ">
+
+        <label>画像ファイル名</label>
+        <input class="figure-filename" placeholder="例：bc0102.png">
+
+        <label>図の下の説明</label>
+        <textarea class="figure-description" placeholder="図の説明（省略可）"></textarea>
+    `;
+
+            document.getElementById("figures").appendChild(section);
+
+            addCloseButton(
+                section,
+                () =>
+                    !section.querySelector(".figure-title").value.trim() &&
+                    !section.querySelector(".figure-filename").value.trim() &&
+                    !section.querySelector(".figure-description").value.trim(),
+                "図"
+            );
+        }
+
+        function getData() {
+            return {
+                textNumber: document.getElementById("textNumber").value.trim(),
+                chapterNumber: document.getElementById("chapterNumber").value.trim(),
+                textTitle: document.getElementById("textTitle").value.trim(),
+                chapterTitle: document.getElementById("chapterTitle").value.trim(),
+                pageNumber: document.getElementById("pageNumber").value.trim(),
+                pageTitle: document.getElementById("pageTitle").value.trim(),
+                introTitle: document.getElementById("introTitle").value.trim(),
+                introBody: document.getElementById("introBody").value.trim(),
+                topics: [...document.querySelectorAll("#topics .topic")].map(block => ({
+                    name: block.querySelector(".topic-name").value.trim(),
+                    description: block.querySelector(".topic-description").value.trim(),
+                    bodyTitle: block.querySelector(".topic-body-title").value.trim(),
+                    body: cleanEditorHtml(block.querySelector(".topic-body")),
+                    more: block.querySelector(".more-enabled").checked ? {
+                        title: block.querySelector(".more-title").value.trim(),
+                        body: cleanEditorHtml(block.querySelector(".more-body")),
+                        note: cleanEditorHtml(block.querySelector(".more-note"))
+                    } : null
+                })),
+                figures: [...document.querySelectorAll("#figures .figure-entry")].map(block => ({
+                    title: block.querySelector(".figure-title").value.trim(),
+                    filename: block.querySelector(".figure-filename").value.trim(),
+                    description: block.querySelector(".figure-description").value.trim()
+                })).filter(figure => figure.title || figure.filename || figure.description),
+                points: [...document.querySelectorAll("#points .point-entry")].map(block => ({
+                    title: block.querySelector(".point-title").value.trim(),
+                    body: block.querySelector(".point-body").value.trim()
+                })).filter(point => point.title || point.body)
+            };
+        }
+
+
+        function importHtmlToForm() {
+            const html = document.getElementById("importHtml").value.trim();
+            const status = document.getElementById("status");
+
+            if (!html) {
+                status.textContent = "HTMLを貼り付けてから読み込んでね。";
+                return;
+            }
+
+            try {
+                const doc = new DOMParser().parseFromString(html, "text/html");
+                const page = doc.querySelector(".page-content");
+
+                if (!page || !doc.querySelector("h1")) {
+                    throw new Error("教材ページのHTMLではないようです。");
+                }
+
+                const setValue = (id, value) => {
+                    document.getElementById(id).value = value || "";
+                };
+
+                setValue("textNumber", page.dataset.textNumber);
+                setValue("chapterNumber", page.dataset.chapterNumber);
+                setValue("pageNumber", page.dataset.pageNumber);
+
+                setValue("textTitle", doc.querySelector(".text-title")?.textContent);
+                setValue(
+                    "chapterTitle",
+                    doc.querySelector(".chapter-title")?.textContent
+                        .replace(/^第\d+章：?/, "")
+                );
+                setValue("pageTitle", doc.querySelector("h1")?.textContent);
+
+                const intro = doc.querySelector(".page-intro");
+
+                setValue(
+                    "introTitle",
+                    intro?.querySelector("h2")?.textContent
+                );
+
+                setValue(
+                    "introBody",
+                    intro
+                        ? [...intro.querySelectorAll(":scope > p")]
+                            .map(p => p.textContent)
+                            .join("\n")
+                        : ""
+                );
+
+
+                // 既存の入力欄を空にする
+                document.getElementById("topics").replaceChildren();
+                document.getElementById("figures").replaceChildren();
+                document.getElementById("points").replaceChildren();
+
+                topicCount = 0;
+                pointCount = 0;
+
+                // トピックを復元
+                doc.querySelectorAll(".topic-block").forEach(block => {
+                    addTopic();
+
+                    const form = document.querySelector("#topics .topic:last-child");
+                    const detail = block.querySelector(".topic-detail");
+                    const more = detail?.querySelector(".more-area");
+                    const moreDetail = more?.querySelector(".more-detail");
+                    const headings = detail
+                        ? [...detail.children].filter(el => el.tagName === "H4")
+                        : [];
+
+                    form.querySelector(".topic-name").value =
+                        block.querySelector(".topic-button")?.textContent.trim() || "";
+
+                    form.querySelector(".topic-description").value =
+                        block.querySelector(".topic-description")?.textContent.trim() || "";
+
+                    form.querySelector(".topic-body-title").value =
+                        headings[0]?.textContent.trim() || "";
+
+                    const bodyEditor = form.querySelector(".topic-body");
+                    const bodyClone = detail.cloneNode(true);
+
+                    bodyClone.querySelectorAll("h4, .more-area").forEach(el => el.remove());
+                    bodyEditor.innerHTML = bodyClone.innerHTML.trim();
+
+                    if (moreDetail) {
+                        form.querySelector(".more-enabled").checked = true;
+                        form.querySelector(".more-fields").hidden = false;
+
+                        form.querySelector(".more-title").value =
+                            moreDetail.querySelector("h4")?.textContent.trim() || "";
+
+                        const moreClone = moreDetail.cloneNode(true);
+                        moreClone.querySelectorAll("h4, .note-box").forEach(el => el.remove());
+
+                        form.querySelector(".more-body").innerHTML =
+                            moreClone.innerHTML.trim();
+
+                        const noteBox = moreDetail.querySelector(".note-box");
+                        const noteContent = noteBox ? noteBox.innerHTML : "";
+
+                        form.querySelector(".more-note").innerHTML =
+                            noteContent.replace(/^<strong>補足：<\/strong>\s*/i, "");
+                    }
+                });
+
+                // 図を復元
+                doc.querySelectorAll("figure.text-figure").forEach(figure => {
+                    addFigure();
+
+                    const form = document.querySelector("#figures .figure-entry:last-child");
+                    const img = figure.querySelector("img");
+
+                    form.querySelector(".figure-title").value =
+                        figure.querySelector("figcaption")?.textContent.trim() || "";
+
+                    form.querySelector(".figure-filename").value =
+                        img?.getAttribute("src")?.split("/").pop() || "";
+
+                    form.querySelector(".figure-description").value =
+                        [...figure.querySelectorAll(":scope > p")]
+                            .map(p => p.textContent)
+                            .join("\n");
+                });
+
+                // POINTを復元
+                doc.querySelectorAll(".point-box").forEach(point => {
+                    addPoint();
+
+                    const form = document.querySelector("#points .point-entry:last-child");
+
+                    form.querySelector(".point-title").value =
+                        point.querySelector(".point-title")?.textContent.trim() || "";
+
+                    form.querySelector(".point-body").value =
+                        [...point.querySelectorAll("p")]
+                            .map(p => p.textContent)
+                            .join("\n");
+                });
+
+                status.textContent = "HTMLを読み込みました。内容を確認してね。";
+            } catch (error) {
+                status.textContent = "読み込みに失敗しました：" + error.message;
+            }
+        }
+
+
+        function plainTextFromHtml(html) {
+            const element = document.createElement("div");
+            element.innerHTML = html;
+            return (element.textContent || "").trim();
+        }
+
+        function buildPageHtml(data) {
+            const text = String(data.textNumber || "01").replace(/\D/g, "").padStart(2, "0");
+            const chapter = String(data.chapterNumber || "01").replace(/\D/g, "").padStart(2, "0");
+            const page = String(data.pageNumber || "001").replace(/\D/g, "").padStart(3, "0");
+            const pagePosition = `data-text-number="${text}" data-chapter-number="${chapter}" data-page-number="${Number(page)}"`;
+            const chapterClass = `chapter-${text}-${chapter}`;
+            const title = escapeHtml(data.pageTitle || "無題");
+
+            const introTitle = escapeHtml(data.introTitle || "");
+            const introBody = String(data.introBody || "").trim();
+
+            const introHtml = (introTitle || introBody)
+                ? `
+    <section class="page-intro">
+        ${introTitle ? `<h2>${introTitle}</h2>` : ""}
+        ${introBody
+                    ? introBody.split(/\r?\n/).map(line =>
+                        line.trim()
+                            ? `<p>${escapeHtml(line)}</p>`
+                            : ""
+                    ).filter(Boolean).join("\n")
+                    : ""}
+    </section>`
+                : "";
+
+            const textTitle = escapeHtml(data.textTitle || "");
+            const chapterTitle = escapeHtml(data.chapterTitle || "");
+            const topics = data.topics.filter(t => t.name || t.description || t.body || (t.more && (t.more.title || t.more.body)));
+
+            const topicHtml = topics.map((topic, index) => {
+                const n = index + 1;
+                const surfaceId = `t${text}c${chapter}p${page}t${n}`;
+                const moreId = `${surfaceId}m1`;
+                const name = escapeHtml(topic.name || `トピック ${n}`);
+                const description = topic.description ? `\n            <div class="topic-description">${escapeHtml(topic.description)}</div>` : "";
+                const body = topic.body || "";
+                const bodyTitle = escapeHtml(topic.bodyTitle || "");
+                let moreHtml = "";
+
+                if (topic.more) {
+                    const moreTitle = escapeHtml(topic.more.title || "");
+                    const moreBody = topic.more.body || "";
+                    const note = topic.more.note || "";
+
+                    // タグだけで中身が空の場合も、補足なしとして扱う
+                    const noteText = note.replace(/<[^>]*>/g, "").trim();
+                    const noteHtml = noteText
+                        ? `<div class="note-box"><strong>補足：</strong>${note}</div>`
+                        : "";
+
+                    moreHtml = `
+    <div class="more-area">
+        <button class="more-button" type="button" onclick="toggleTopic('${moreId}')">もっと見る</button>
+        <div id="${moreId}" class="more-detail">
+            ${moreTitle ? `<h4>${moreTitle}</h4>` : ""}
+            ${moreBody}
+            ${noteHtml}
+        </div>
+    </div>`;
+                }
+                return `
+    <div class="topic-block">
+        <button class="topic-button" onclick="toggleTopic('${surfaceId}')">${name}</button>${description}
+        <div id="${surfaceId}" class="topic-detail">
+    ${bodyTitle ? `<h4>${bodyTitle}</h4>` : ""}
+    ${body}
+    ${moreHtml}
+</div>
+    </div>`;
+            }).join("\n");
+
+            const figuresHtml = (data.figures || []).map(figure => {
+                const figureTitle = escapeHtml(figure.title || "");
+                const filename = String(figure.filename || "").trim().replace(/^.*[\\/]/, "");
+                const description = figure.description || "";
+
+                if (!filename) return "";
+
+                const descriptionHtml = description
+                    ? description.split(/\r?\n/).map(line => `<p>${escapeHtml(line)}</p>`).join("\n")
+                    : "";
+
+                return `
+        <figure class="text-figure">
+            ${figureTitle ? `<figcaption>${figureTitle}</figcaption>` : ""}
+            <img src="../../images/${escapeHtml(filename)}" alt="">
+            ${descriptionHtml}
+        </figure>`;
+            }).join("\n");
+
+
+            const pointsHtml = data.points.length ? data.points.map(point => `
+        <div class="point-box">
+            ${point.title ? `<div class="point-title">${escapeHtml(point.title)}</div>` : ""}
+            ${point.body ? point.body.split(/\r?\n/).map(line => `<p>${escapeHtml(line)}</p>`).join("\n") : ""}
+        </div>`).join("\n") : "";
+
+            const previousPage = Math.max(1, Number(page) - 1);
+            const nextPage = Number(page) + 1;
+            const previousFile = `${String(previousPage).padStart(2, "0")}.html`;
+            const nextFile = `${String(nextPage).padStart(2, "0")}.html`;
+            const navigationHtml = `
+        <div class="page-navigation">
+            <a href="${previousFile}" class="prev-page">← 前のページへ</a>
+            <a href="${nextFile}" class="next-page">次のページ →</a>
+        </div>`;
+
+            // 生成先は basic/01/ などの教材フォルダを想定。共通CSS・JSは元の構成に合わせている。
+            return `<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${textTitle} 第${chapter}章 ${title}</title>
+    <link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+    <div id="site-header"></div>
+    <div class="page-content ${chapterClass}" ${pagePosition}>
+    
+<div class="text-title-row">
+    <p class="text-title">${textTitle}</p>
+    <span id="text-page-position">テキスト全体：計算待ち</span>
+</div>
+
+    <p class="chapter-title">第${Number(chapter)}章：${chapterTitle}</p>
+
+    <h1>${title}</h1>
+  
+    <p>タイトルをクリックすると、詳しい内容が開きます。</p>
+
+        <div class="progress-panel">
+            <div class="progress-heading">
+                <strong>このページの学習状況</strong>
+                <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress-track">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+            <p id="progress-summary">完了 0 / ${topics.length} 節</p>
+        </div>
+
+
+${introHtml}
+${topicHtml}
+
+${figuresHtml}
+
+${pointsHtml}
+
+${navigationHtml}
+
+        <div class="return-navigation">
+            <a href="../../basic/index.html">基本論のテキストに戻る</a>
+            <a href="../../index.html">トップページに戻る</a>
+        </div>
+    </div>
+    <div id="site-footer"></div>
+    
+    <script src="../../js/common.js"><\/script>
+    <script src="../../js/page-settings.js"><\/script>   
+    <script src="../../js/topic.js"><\/script>
+<\/body>
+</html>
+`;
+        }
+        document.getElementById("addTopic").addEventListener("click", addTopic);
+        document.getElementById("addPoint").addEventListener("click", addPoint);
+        document.getElementById("addFigure").addEventListener("click", addFigure);
+        document.getElementById("importHtmlButton").addEventListener("click", importHtmlToForm);
+
+        document.getElementById("prevPageButton").addEventListener("click", () => {
+            const pageInput = document.getElementById("pageNumber");
+            const currentPage = Number.parseInt(pageInput.value, 10);
+
+            if (!Number.isInteger(currentPage) || currentPage < 1) {
+                alert("ページ番号を正しく入力してください。");
+                return;
+            }
+
+            if (currentPage > 1) {
+                pageInput.value = String(currentPage - 1).padStart(3, "0");
+            }
+        });
+
+        document.getElementById("nextPageButton").addEventListener("click", () => {
+            const pageInput = document.getElementById("pageNumber");
+            const currentPage = Number.parseInt(pageInput.value, 10);
+
+            if (!Number.isInteger(currentPage) || currentPage < 1) {
+                alert("ページ番号を正しく入力してください。");
+                return;
+            }
+            pageInput.value = String(currentPage + 1).padStart(3, "0");
+        });
+
+
+
+
+
+        document.getElementById("generateButton").addEventListener("click", () => {
+            const data = getData();
+
+            if (!data.pageTitle) {
+                alert("ページタイトルを入力してください。");
+                return;
+            }
+
+            if (!data.topics.some(t =>
+                t.name || t.description || t.body ||
+                (t.more && (t.more.title || t.more.body || t.more.note))
+            )) {
+                alert("少なくとも1つトピックを入力してください。");
+                return;
+            }
+
+
+            const html = buildPageHtml(data);
+            // 教材ページを下のプレビュー枠に表示
+            const previewPanel = document.getElementById("pagePreviewPanel");
+            const previewFrame = document.getElementById("pagePreviewFrame");
+
+            previewPanel.hidden = false;
+            previewFrame.srcdoc = html;
+
+
+
+
+            // 生成したHTMLを画面内に表示
+            const preview = document.getElementById("preview");
+            preview.hidden = false;
+            preview.value = html;
+
+            document.getElementById("status").textContent =
+                "HTMLを生成しました。内容を確認してください。";
+        });
+
+        document.getElementById("copyHtmlButton").addEventListener("click", async () => {
+            const preview = document.getElementById("preview");
+
+            if (preview.hidden || !preview.value.trim()) {
+                alert("先に「HTMLを生成」を押してください。");
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(preview.value);
+                document.getElementById("status").textContent =
+                    "HTMLコードをコピーしました！";
+            } catch (error) {
+                preview.focus();
+                preview.select();
+                document.getElementById("status").textContent =
+                    "コードを選択しました。Ctrl + C でコピーしてください。";
+            }
+        });
+
+        document.getElementById("cancelButton").addEventListener("click", () => {
+            if (!confirm("トピックとPOINTの入力内容をリセットしますか？")) return;
+            document.getElementById("topics").replaceChildren();
+            document.getElementById("points").replaceChildren();
+            topicCount = 0;
+            pointCount = 0;
+            document.getElementById("preview").hidden = true;
+            document.getElementById("status").textContent = "";
+            addTopic();
+            addPoint();
+        });
+
+
+
+
+        console.log("DEBUG 3: 初期化直前");
+
+        addTopic();
+        addPoint();
+    </script>
+
+
+
+    <script>
+        console.log("DEBUG: 診断スクリプト開始");
+        console.log("DEBUG: この位置までHTMLを解析できた");
+
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("DEBUG: DOMContentLoaded");
+            console.log("DEBUG: addTopicボタン", document.getElementById("addTopic"));
+            console.log("DEBUG: addPointボタン", document.getElementById("addPoint"));
+            console.log("DEBUG: generateButton", document.getElementById("generateButton"));
+        });
+
+
+        (() => {
+            const fields = [
+                "textNumber",
+                "textTitle",
+                "chapterNumber",
+                "chapterTitle",
+                "pageNumber"
+            ];
+            const storageKey = "generatorPageSettings";
+
+            // 保存済みの番号を復元
+            try {
+                const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+
+                fields.forEach((id) => {
+                    const input = document.getElementById(id);
+
+                    if (input && Object.prototype.hasOwnProperty.call(saved, id)) {
+                        input.value = saved[id];
+                    }
+                });
+            } catch (error) {
+                console.warn("ページ設定を読み込めませんでした。", error);
+            }
+
+            // 変更された番号だけ保存
+            function saveSettings() {
+                const saved = {};
+
+                fields.forEach((id) => {
+                    const input = document.getElementById(id);
+                    if (input) saved[id] = input.value;
+                });
+
+                try {
+                    localStorage.setItem(storageKey, JSON.stringify(saved));
+                } catch (error) {
+                    console.warn("ページ設定を保存できませんでした。", error);
+                }
+            }
+
+            fields.forEach((id) => {
+                const input = document.getElementById(id);
+                if (input) {
+                    input.addEventListener("input", saveSettings);
+                }
+            });
+
+            // 前後ボタンでのページ番号変更も保存
+            ["prevPageButton", "nextPageButton"].forEach((id) => {
+                const button = document.getElementById(id);
+                if (button) {
+                    button.addEventListener("click", saveSettings);
+                }
+            });
+        })();
+
+
+
+    </script>
+
+    <div class="back-to-top">
+        <a href="/index.html">トップへ戻る</a>
+    </div>
+
+
+</body>
+
+</html>
+
+
+localStorage.removeItem("toyoProgress");
+location.reload();
