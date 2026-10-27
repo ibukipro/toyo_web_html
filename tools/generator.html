@@ -939,7 +939,7 @@
             const nextFile = `${String(nextPage).padStart(2, "0")}.html`;
             const navigationHtml = `
         <div class="page-navigation">
-            <a href="${previousFile}" class="prev-page">← 前のページへ</a>
+            <a href="${previousFile}" class="prev-page">← 前のページ</a>
             <a href="${nextFile}" class="next-page">次のページ →</a>
         </div>`;
 
@@ -965,8 +965,7 @@
 
     <h1>${title}</h1>
   
-    <p>タイトルをクリックすると、詳しい内容が開きます。</p>
-
+    <p class="page-help">タイトルをクリックすると、詳しい内容が開きます。</p>
         <div class="progress-panel">
             <div class="progress-heading">
                 <strong>このページの学習状況</strong>

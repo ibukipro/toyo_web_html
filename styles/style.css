@@ -296,7 +296,10 @@ body.menu-open {
 
 }
 
-
+/* 段落の行間 */
+p {
+    line-height: 1.8;
+}
 
 .text-card {
     margin: 20px 0;
@@ -337,7 +340,7 @@ body.menu-open {
 /* 講座トピックの表示 */
 
 .topic-block {
-    margin: 25px 0;
+    margin: 25px 0 45px;
 }
 
 .topic-button {
@@ -348,7 +351,7 @@ body.menu-open {
     border-radius: 18px;
     background: var(--color-accent);
     color: #333;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 800;
     text-align: left;
     cursor: pointer;
@@ -360,6 +363,21 @@ body.menu-open {
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
 }
 
+/* 章タイトル */
+.chapter-title {
+    margin-top: 0;
+    white-space: nowrap;
+    font-size: 0.95rem;
+}
+
+
+/* ページの操作説明 */
+.page-help {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 0;
+    margin-bottom: 12px;
+}
 
 /* 閲覧済みの節 */
 .topic-button.is-viewed {
@@ -548,15 +566,15 @@ margin-left: auto;
 
 .prev-page,
 .next-page {
-display: inline-block;
-padding: 10px 18px;
-border-radius: 16px;
-background: var(--color-accent);
-color: #333;
-font-size: 15px;
-font-weight: 700;
-text-decoration: none;
-box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 16px;
+    background: #E8E8E8;
+    color: #666;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
 }
 
 .prev-page:active,
@@ -698,6 +716,7 @@ transform: translateY(1px);
 
 
 
+
 /* テキストタイトルと全体ページ番号 */
 .text-title-row {
     display: flex;
@@ -705,10 +724,13 @@ transform: translateY(1px);
     justify-content: space-between;
     gap: 12px;
     flex-wrap: wrap;
+
+    margin-top: 20px; /* 上に余白を追加 */
 }
 
 .text-title-row .text-title {
     margin: 0;
+    font-size: 1.4rem; /* 文字を少し大きく */
 }
 
 #text-page-position {
