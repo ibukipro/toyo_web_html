@@ -26,15 +26,22 @@ document.getElementById("site-header").innerHTML = `
     <nav class="site-menu" id="site-menu" aria-label="サイトメニュー" inert>
         <div class="site-menu-heading">メニュー</div>
 
-        <a href="/index.html">トップページ</a>
-        <a href="/basic/index.html">基本論</a>
-        <a href="/advanced/index.html">発展論</a>
-        <a href="/tools/generator.html">教材ページ作成ツール</a>
+      <a href="#" data-page="index.html">トップページ</a>
+      <a href="#" data-page="basic/index.html">基本論</a>
+      <a href="#" data-page="advanced/index.html">発展論</a>
+      <a href="#" data-page="tools/generator.html">教材ページ作成ツール</a>
       
     </nav>
 
 </header>
 `;
+
+const isGitHubPages = location.hostname === "ibukipro.github.io";
+const siteBase = isGitHubPages ? "/toyo_web_html/" : "/";
+
+document.querySelectorAll("#site-menu a[data-page]").forEach(link => {
+    link.href = siteBase + link.dataset.page;
+});
 
 document.getElementById("site-footer").innerHTML = `
 <footer class="site-footer">
