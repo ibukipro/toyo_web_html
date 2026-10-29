@@ -8,9 +8,7 @@
     --color-panel: #f7f5ee;
     --color-paper: #fffdf5;
     --color-soft-border: #c9b978;
-  
-}
-
+  }
 
 
 /* =========================
@@ -28,7 +26,6 @@ body {
     flex-direction: column;
 }
 
-
 .page-content {
     width: 100%;
     max-width: 760px;
@@ -44,15 +41,29 @@ body {
     }
 }
 
+/* 段落の行間 */
+p {
+    line-height: 1.8;
+}
+
+.page-content hr {
+    border: 0;
+    border-top: 1px solid #d2d2d2;
+    margin: 30px 0 30px 0;
+}
+
+
+
 /* =========================
    サイト共通ヘッダー
    ========================= */
 
+/* ヘッダー */
 .site-header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--color-header)
+    background: #F5DFA0;
 }
 
 .site-header-inner {
@@ -94,7 +105,7 @@ body {
 
 
 /* =========================
-   メニューボタン
+   ヘッダーメニューボタン
 ========================= */
 
 .menu-toggle {
@@ -125,7 +136,7 @@ body {
 }
 
 /* =========================
-   メニューの背景
+   ヘッダーメニューの背景
 ========================= */
 
 .menu-overlay {
@@ -145,7 +156,7 @@ body {
 
 
 /* =========================
-   右側から開くメニュー
+   ヘッダー右側から開くメニュー
 ========================= */
 
 .site-menu {
@@ -171,9 +182,10 @@ body {
     visibility: visible;
 }
 
+/* メニューの見出し */
 .site-menu-heading {
     padding: 8px 12px 16px;
-    color: #8a7530;
+    color: #F3B7A5;
     font-size: 17px;
     font-weight: 800;
 }
@@ -224,9 +236,6 @@ body.menu-open {
     }
 }
 
-
-
-
 /* =========================
    サイト共通フッター
    ========================= */
@@ -274,94 +283,151 @@ body.menu-open {
 }
 
 
-
 /* =========================
-   トップページタイトル
+   メインページインデックス
 ========================= */
 
-.page-content h1 {
-    font-size: 26px;
+/* メインページのタイトル */
+h1.main-heading {
+    font-size: 2rem;
     font-weight: 800;
-    line-height: 1.5; 
+    line-height: 1.5;
+    margin-top: 30px;
+    margin-bottom: 15px;
     padding-bottom: 10px;
-    margin-bottom: 24px;
     border-bottom: 3px solid var(--color-accent);
 }
 
+/* スマホ用 */
 @media screen and (max-width: 600px) {
-
-    .page-content h1 {
-        font-size: 24px;
+    h1.main-heading {
+        font-size: 1.6rem;
     }
-
 }
 
-/* 段落の行間 */
-p {
-    line-height: 1.8;
-}
 
+/* テキスト選択カード */
 .text-card {
     margin: 20px 0;
 }
 
-
 /* テキスト選択ボタン */
-
 .text-card-title {
     display: inline-block;
     padding: 12px 20px;
-    border-radius: 18px;
     margin-bottom: 14px;
-    background: var(--color-accent);
-    color: #333;
-
+    border-radius: 18px;
+    background: #F0E9F5;
+    color: #554B68;
     font-size: 20px;
-    font-weight: 800;
+    font-weight: 700;
     text-decoration: none;
-
-    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
-
+    box-shadow: 0 3px 0 rgba(85, 75, 104, 0.15);
     transition: transform 0.1s;
 }
 
+/* 押したとき */
 .text-card-title:active {
     transform: translateY(2px);
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
-}
-
-.page-content hr {
-    border: 0;
-    border-top: 1px solid #d2d2d2;
-    margin: 30px 0 30px 0;
+    box-shadow: 0 1px 0 rgba(85, 75, 104, 0.15);
 }
 
 
-/* 講座トピックの表示 */
+/* =========================
+  チャプターのインデックス
+========================= */
 
-.topic-block {
-    margin: 25px 0 45px;
+
+/* チャプターのインデックスタイトル */
+h1.chapter-heading {
+    font-size: 1.8rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--color-accent);
 }
 
-.topic-button {
-    display: block;
-    width: 100%;
-    padding: 12px 18px;
+/* スマホ用 */
+@media screen and (max-width: 600px) {
+    h1.chapter-heading {
+        font-size: 1.6rem;
+    }
+}
+
+.chapter-block {
+    margin: 18px 0;
     border: 0;
     border-radius: 18px;
-    background: var(--color-accent);
-    color: #333;
-    font-size: 16px;
-    font-weight: 800;
-    text-align: left;
-    cursor: pointer;
-    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
+    background: transparent;
 }
 
-.topic-button:active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+/* チャプター選択ボタン */
+.chapter-block > summary {
+    display: block;
+    padding: 10px 18px;
+    border-radius: 18px;
+    background: #D6E5F2;
+    color: #3E5365;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
 }
+
+.chapter-block > summary:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* チャプター内のリンク一覧 */
+.chapter-links {
+    padding: 12px 8px 4px 8px;
+}
+
+/* チャプター内のリンク */
+.chapter-links a {
+    display: block;
+    padding: 6px 12px;
+    margin: 4px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #493A32;
+    text-decoration: none;
+}
+
+.chapter-links a:active {
+    transform: translateX(2px);
+}
+
+
+/* =========================
+  各ページ内 
+========================= */
+
+/* テキストタイトルと全体ページ番号 */
+.text-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.text-title-row .text-title {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+/* テキスト全体のページ番号 */
+#text-page-position {
+    display: none;
+    font-size: 0.85em;
+    color: #777;
+    white-space: nowrap;
+}
+
 
 /* 章タイトル */
 .chapter-title {
@@ -371,7 +437,24 @@ p {
 }
 
 
-/* ページの操作説明 */
+/* ページタイトルのh1 */
+h1.page-heading {
+    font-size: 1.8rem;
+    font-weight: 500;
+    line-height: 1.5;
+    padding-bottom: 10px;
+    margin-bottom: 24px;
+    border-bottom: 3px solid var(--color-accent);
+}
+
+/* ページタイトルh1スマホ用 */
+@media screen and (max-width: 600px) {
+    h1.page-heading {
+        font-size: 24px;
+    }
+}
+
+/* ページの操作説明 「タイトルをクリックすると～」 */
 .page-help {
     font-size: 0.85rem;
     color: #777;
@@ -379,10 +462,62 @@ p {
     margin-bottom: 12px;
 }
 
+/* ページ冒頭説明 */
+.page-intro {
+    margin-bottom: 32px;
+}
+
+/* ページ冒頭タイトル */
+.page-intro h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+    padding: 8px 12px;
+    background: #F3F5F1;
+    border-radius: 6px;
+}
+
+
+/* ページ冒頭の説明文 */
+.page-intro p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #555;
+    margin-top: 2px;
+    margin-bottom: 12px;
+}
+
+/* 講座トピックの表示 */
+
+.topic-block {
+    margin: 25px 0 45px;
+}
+
+/* トピック選択ボタン：閲覧前 */
+.topic-button {
+    display: block;
+    width: 100%;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 18px;
+    background: #D5E2D2;
+    color: #333;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+.topic-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
+}
+
 /* 閲覧済みの節 */
 .topic-button.is-viewed {
-    background: var(--color-panel);
-    box-shadow: inset 0 0 0 2px var(--color-soft-border);
+    background: #F5F8F3;
+    color: #526052;
+    box-shadow: inset 0 0 0 2px #D5E2D2;
 }
 
 
@@ -430,8 +565,6 @@ p {
 }
 
 
-
-
 /* 詳細を確認済み */
 .more-button.is-viewed {
     background: var(--color-panel);
@@ -469,7 +602,6 @@ p {
 }
 
 
-
 .note-box {
     margin: 18px 0;
     padding: 10px 14px;
@@ -479,48 +611,6 @@ p {
     line-height: 1.7;
 }
 
-.chapter-block {
-    margin: 18px 0;
-    border: 0;
-    border-radius: 18px;
-    background: transparent;
-}
-
-.chapter-block > summary {
-    display: block;
-    padding: 10px 18px;
-    border-radius: 18px;
-    background: var(--color-accent);
-    color: #333;
-    font-size: 18px;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
-}
-
-.chapter-block > summary:active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
-}
-
-.chapter-links {
-    padding: 12px 8px 4px 8px;
-}
-
-.chapter-links a {
-    display: block;
-    padding: 6px 12px;
-    margin: 4px 0;
-    font-size: 15px;
-    font-weight: 600;
-    color: #444;
-    text-decoration: none;
-}
-
-.chapter-links a:active {
-    transform: translateX(2px);
-}
-
 /* ポイントボックス */
 .point-box {
     width: 480px;
@@ -528,7 +618,7 @@ p {
     margin: 60px auto 40px auto;
     padding: 20px 22px;
     border-radius: 18px;
-    background: var(--color-panel);
+    background: #FFF7C9;
     border: 2px solid var(--color-accent);
 }
 
@@ -548,7 +638,7 @@ p {
 /* ページナビゲーション */
 
 .page-navigation {
-margin-top: 40px;
+margin-top: 50px;
 display: flex;
 justify-content: space-between;
 align-items: center;
@@ -586,7 +676,8 @@ box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
 /* 戻るナビゲーション */
 
 .return-navigation {
-margin-top: 50px;
+margin-top: 25px;
+margin-bottom: 25px;
 text-align: center;
 }
 
@@ -663,7 +754,6 @@ transform: translateY(1px);
 }
 
 /* 読んだ節 */
-
 .chapter-links .section-link.is-viewed {
     background: transparent;
      color: #C6B5A5;
@@ -695,6 +785,10 @@ transform: translateY(1px);
 
 
 
+
+
+
+
 /* 章ごとの色変更テスト：確認後に削除 */
 .chapter-01-02 h1 {
     color: #d63384 !important;
@@ -712,44 +806,4 @@ transform: translateY(1px);
 
 .site-header.chapter-01-02 {
     background: #d9e8d0;
-}
-
-
-
-
-/* テキストタイトルと全体ページ番号 */
-.text-title-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-
-    margin-top: 20px; /* 上に余白を追加 */
-}
-
-.text-title-row .text-title {
-    margin: 0;
-    font-size: 1.4rem; /* 文字を少し大きく */
-}
-
-#text-page-position {
-    font-size: 0.85em;
-    color: #777;
-    white-space: nowrap;
-}
-
-/* テキスト全体のページ番号を非表示 */
-#text-page-position {
-    display: none;
-}
-
-/* 冒頭説明とトピック一覧の間隔 */
-.page-intro {
-    margin-bottom: 32px;
-}
-
-/* 冒頭タイトルはページタイトルより少し小さくする */
-.page-intro h2 {
-    font-size: 1.25rem;
 }

@@ -47,50 +47,50 @@
             gap: 16px;
         }
 
-       /* 章番号・章タイトルを横幅いっぱいにする */
-.page-settings-grid > div:nth-child(3),
-.page-settings-grid > div:nth-child(4) {
-    grid-column: 1 / -1;
-}
+        /* 章番号・章タイトルを横幅いっぱいにする */
+        .page-settings-grid>div:nth-child(3),
+        .page-settings-grid>div:nth-child(4) {
+            grid-column: 1 / -1;
+        }
 
-/* 5段目：冒頭タイトルを横幅いっぱいにする */
-.page-settings-grid > .intro-title-field {
-    grid-column: 1 / -1;
-    text-align: left;
-}
+        /* 5段目：冒頭タイトルを横幅いっぱいにする */
+        .page-settings-grid>.intro-title-field {
+            grid-column: 1 / -1;
+            text-align: left;
+        }
 
-/* 6段目：冒頭文章を横幅いっぱいにする */
-.page-settings-grid > .intro-body-field {
-    grid-column: 1 / -1;
-    text-align: left;
-}
+        /* 6段目：冒頭文章を横幅いっぱいにする */
+        .page-settings-grid>.intro-body-field {
+            grid-column: 1 / -1;
+            text-align: left;
+        }
 
-/* 冒頭タイトル・冒頭文章の入力欄 */
-.intro-title-field input,
-.intro-body-field textarea {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 0 16px;
-    box-sizing: border-box;
-    text-align: left;
-}
+        /* 冒頭タイトル・冒頭文章の入力欄 */
+        .intro-title-field input,
+        .intro-body-field textarea {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            margin: 0 0 16px;
+            box-sizing: border-box;
+            text-align: left;
+        }
 
-/* ページ番号の入力欄だけ幅を調整 */
-.page-settings-grid #pageNumber {
-    width: 90px;
-    box-sizing: border-box;
-}
+        /* ページ番号の入力欄だけ幅を調整 */
+        .page-settings-grid #pageNumber {
+            width: 90px;
+            box-sizing: border-box;
+        }
 
-/* 冒頭タイトルを1段まるごと使う */
-.page-settings-grid > .intro-title-field {
-    grid-column: 1 / -1;
-}
+        /* 冒頭タイトルを1段まるごと使う */
+        .page-settings-grid>.intro-title-field {
+            grid-column: 1 / -1;
+        }
 
-/* 冒頭文章をタイトルの下に配置する */
-.page-settings-grid > .intro-body-field {
-    grid-column: 1 / -1;
-}
+        /* 冒頭文章をタイトルの下に配置する */
+        .page-settings-grid>.intro-body-field {
+            grid-column: 1 / -1;
+        }
 
         label {
             display: block;
@@ -963,7 +963,8 @@
 
     <p class="chapter-title">第${Number(chapter)}章：${chapterTitle}</p>
 
-    <h1>${title}</h1>
+    <h1 class="page-heading">${title}</h1>
+   
   
     <p class="page-help">タイトルをクリックすると、詳しい内容が開きます。</p>
         <div class="progress-panel">
