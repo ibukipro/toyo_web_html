@@ -963,11 +963,7 @@
 
     <p class="chapter-title">第${Number(chapter)}章：${chapterTitle}</p>
 
-    <h1 class="page-heading">${title}</h1>
-   
-  
-    <p class="page-help">タイトルをクリックすると、詳しい内容が開きます。</p>
-        <div class="progress-panel">
+<div class="progress-panel">
             <div class="progress-heading">
                 <strong>このページの学習状況</strong>
                 <span id="progress-percent">0%</span>
@@ -979,7 +975,17 @@
         </div>
 
 
+    <h1 class="page-heading">${title}</h1>
+   
+  
+  
+        
+
+
 ${introHtml}
+
+ <p class="page-help"></p>
+
 ${topicHtml}
 
 ${figuresHtml}
@@ -990,7 +996,7 @@ ${navigationHtml}
 
         <div class="return-navigation">
             <a href="../../basic/index.html">基本論のテキストに戻る</a>
-            <a href="../../index.html">トップページに戻る</a>
+           <a href="#" class="top-page-link">トップページに戻る</a>
         </div>
     </div>
     <div id="site-footer"></div>
@@ -1031,8 +1037,6 @@ ${navigationHtml}
             }
             pageInput.value = String(currentPage + 1).padStart(3, "0");
         });
-
-
 
 
 
@@ -1107,9 +1111,6 @@ ${navigationHtml}
 
 
 
-
-        console.log("DEBUG 3: 初期化直前");
-
         addTopic();
         addPoint();
     </script>
@@ -1117,9 +1118,7 @@ ${navigationHtml}
 
 
     <script>
-        console.log("DEBUG: 診断スクリプト開始");
-        console.log("DEBUG: この位置までHTMLを解析できた");
-
+       
         document.addEventListener("DOMContentLoaded", () => {
             console.log("DEBUG: DOMContentLoaded");
             console.log("DEBUG: addTopicボタン", document.getElementById("addTopic"));

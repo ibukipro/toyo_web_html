@@ -163,7 +163,21 @@ function updateProgress() {
     }
 }
 
+// 全ページ共通の説明文
+const PAGE_HELP_TEXT = "タイトルをクリックすると、詳しい内容が開きます。";
 
+// ページに説明文を表示
+document.querySelectorAll(".page-help").forEach(el => {
+    el.textContent = PAGE_HELP_TEXT;
+});
+
+// トップページへのリンク先
+const TOP_PAGE_URL = "../../index.html";
+
+// リンク先を設定
+document.querySelectorAll(".top-page-link").forEach(el => {
+    el.href = TOP_PAGE_URL;
+});
 
 
 document.addEventListener("DOMContentLoaded", () => {

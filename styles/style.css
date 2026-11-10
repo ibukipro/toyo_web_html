@@ -443,7 +443,7 @@ h1.page-heading {
     font-weight: 500;
     line-height: 1.5;
     padding-bottom: 10px;
-    margin-bottom: 24px;
+    margin-bottom: 10px;
     border-bottom: 3px solid var(--color-accent);
 }
 
@@ -471,8 +471,7 @@ h1.page-heading {
 .page-intro h2 {
     font-size: 1.2rem;
     margin-bottom: 0;
-    padding: 8px 12px;
-    background: #F3F5F1;
+    padding: 0px 12px;
     border-radius: 6px;
 }
 
@@ -505,7 +504,7 @@ h1.page-heading {
     font-weight: 800;
     text-align: left;
     cursor: pointer;
-    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: inset 0 0 0 2px #526052;
 }
 
 .topic-button:active {
@@ -517,7 +516,7 @@ h1.page-heading {
 .topic-button.is-viewed {
     background: #F5F8F3;
     color: #526052;
-    box-shadow: inset 0 0 0 2px #D5E2D2;
+    box-shadow: inset 0 0 0 2px #526052;
 }
 
 
@@ -790,19 +789,8 @@ transform: translateY(1px);
 
 
 /* 章ごとの色変更テスト：確認後に削除 */
-.chapter-01-02 h1 {
-    color: #d63384 !important;
-}
 
-.chapter-01-02 .point-box {
-    background-color: #fff0f5 !important;
-    border-color: #d63384 !important;
-}
 
-.chapter-01-02 .page-navigation a {
-    background-color: #d63384 !important;
-    color: #ffffff !important;
-}
 
 .site-header.chapter-01-02 {
     background: #d9e8d0;

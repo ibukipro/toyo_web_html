@@ -3,7 +3,7 @@ const pageSettings = {
     "01": {
         chapters: {
             "01": {
-                totalPages: 30
+                totalPages: 11
             },
             "02": {
                 totalPages: 25
