@@ -29,7 +29,7 @@ document.getElementById("site-header").innerHTML = `
       <a href="#" data-page="index.html">トップページ</a>
       <a href="#" data-page="basic/index.html">基本論</a>
       <a href="#" data-page="advanced/index.html">発展論</a>
-      <a href="#" data-page="tools/generator.html">教材ページ作成ツール</a>
+    <!-- <a href="#" data-page="tools/generator.html">教材ページ作成ツール</a>-->
       
     </nav>
 
